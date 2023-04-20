@@ -4,13 +4,6 @@ interface INodes {
 	children: React.ReactNode;
 }
 
-// export type PointsContextType = {
-// 	points: number;
-// 	addPoints: (count: number) => void;
-// 	subtractPoints: (count: number) => void;
-// 	getPoints: () => {};
-// };
-
 export interface IPointsContext {
 	points: number;
 	addPoints: Function;
@@ -27,19 +20,15 @@ let defaultValue: IPointsContext = {
 
 export const PointsContext = createContext(defaultValue);
 
+const usePointsContext = () => useContext(PointsContext);
+
 
 const PointsProvider: React.FC<INodes> = ({ children }) => {
 	const [points, setPoints] = useState<number>(500);
 
-	const addPoints = (count: number) => {
-        console.log(points + count);
-        
-		setPoints(points + count);
-	};
+	const addPoints = (count: number) => setPoints(points + count);
 
-	const subtractPoints = (count: number) => {
-		setPoints(points - count);
-	};
+	const subtractPoints = (count: number) => setPoints(points - count);
 
 	const getPoints = () => points;
 
@@ -52,4 +41,4 @@ const PointsProvider: React.FC<INodes> = ({ children }) => {
 	);
 };
 
-export {PointsProvider};
+export {PointsProvider, usePointsContext};

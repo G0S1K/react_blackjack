@@ -1,17 +1,17 @@
-import { useContext } from 'react';
-import './App.scss';
-import { PointsContext} from './context/pointsContext';
+import { useState } from 'react';
+import classes from './App.module.scss';
+import { usePointsContext } from './context/pointsContext';
+import Button from './components/button/button';
+import Playground from './components/playground/playground';
 
 function App() {
-  const {points, addPoints, subtractPoints, getPoints} = useContext(PointsContext);
+  const [startGame, setStartGame] = useState(false);
+  const {points, addPoints, subtractPoints, getPoints} = usePointsContext();
 
   return (
-    <div className="app">
-      {points}
-      <button onClick={(e) => {
-        e.preventDefault();
-        addPoints(10);
-      }}></button>
+    <div className={classes.app}>
+      <div className={classes.title}>BlackJack</div>
+      {!startGame ? <Button text={"Play"} onClick={() => setStartGame(!startGame)}></Button> : <Playground>hello</Playground>}
     </div>
   );
 }
